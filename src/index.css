@@ -1,0 +1,61 @@
+@import "tailwindcss";
+@import "tailwindcss";
+
+body {
+  font-family: "Poppins", sans-serif;
+  background-color: #011c3f;
+}
+
+h1,
+h2,
+h3,
+h4,
+.font-heading {
+  font-family: "Montserrat", sans-serif;
+}
+
+.font-body {
+  font-family: "Poppins", sans-serif;
+}
+
+:root {
+  --color-lj-navyDark: #011c3f;
+  --color-lj-forestGreen: #6dbe45;
+  --color-lj-navyDeep: #01132a;
+  --color-lj-navyLight: #012552;
+}
+
+@utility bg-navyLight {
+  background-color: var(--color-lj-navyLight);
+}
+
+@utility text-navyLight {
+  color: var(--color-lj-navyLight);
+}
+@utility bg-navyDeep {
+  background-color: var(--color-lj-navyDeep);
+}
+
+@utility text-navyDeep {
+  color: var(--color-lj-navyDeep);
+}
+@utility bg-navyDark {
+  background-color: var(--color-lj-navyDark);
+}
+@utility text-navyDark {
+  color: var(--color-lj-navyDark);
+}
+
+@utility text-forestGreen {
+  color: var(--color-lj-forestGreen);
+}
+
+@utility bg-forestGreen {
+  background-color: var(--color-lj-forestGreen);
+}
+
+.backdrop-glass {
+  background-color: rgba(1, 28, 63, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}

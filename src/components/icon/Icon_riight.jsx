@@ -1,11 +1,11 @@
-const Icon_right = () => {
+const Icon_right = ({ width, height }) => {
   return (
-    <div>
+    <div className="">
       {" "}
       <svg
         className="group-hover:translate-x-2 transition-transform duration-500"
-        width="18"
-        height="18"
+        width={width || 18}
+        height={height || 18}
         viewBox="0 0 20 20"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"

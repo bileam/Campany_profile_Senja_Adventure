@@ -1,70 +1,220 @@
+import { useState } from "react";
 import Icon_Filter from "../components/icon/Icon_Filter";
 import Card_alat from "../components/Perlengkapan/Cart_alat";
+import Modal from "../components/Perlengkapan/Modal";
 import { Data } from "../Data/Alat";
+import { datatesting } from "../Data/tes";
+import Button from "../components/ui/Button";
+import banner_SenjaAdventure from "../assets/banner/Banner_senja.avif";
+import AOS from "aos";
+import "aos/dist/aos.css";
+import { useEffect } from "react";
 
 const Peralatan = () => {
-  console.log(Data);
+  // console.log(Data);
+  const [openModal, setModal] = useState(false);
+  const [selectedItem, setSelectedItem] = useState(null);
+  const OnclickOpenModal = (item) => {
+    setSelectedItem(item);
+    setModal(true);
+  };
+  const [categori, setCategori] = useState("Semua");
+  const [search, setSearch] = useState("");
+
+  useEffect(() => {
+    AOS.init({
+      duration: 800,
+      once: true,
+      offset: 120,
+    });
+  }, []);
+  // filtering
+
+  const filterdata = Data.filter((item) => {
+    const filterkategori = categori === "Semua" || item.kategori === categori;
+    const SearchFilter =
+      item.name.toLowerCase().includes(search.toLowerCase()) ||
+      item.description.toLowerCase().includes(search.toLowerCase());
+    return filterkategori && SearchFilter;
+  });
+
+  // // console.log(datatesting);
+  // // 2. Total jumlah barang yang stoknya habis
+  // let jumlaStock = 0;
+  // for (let i = 0; i < datatesting.length; i++) {
+  //   if (datatesting[i].stock === 0) {
+  //     jumlaStock++;
+  //   }
+  // }
+  // console.log(jumlaStock);
+
+  // const filterStockhabis = datatesting.filter(
+  //   (item) => item.dstock === 0,
+  // ).length;
+
+  // console.log("stock habis" + filterStockhabis);
+  // const datakita = [
+  //   { name: "Mouse", stock: 10 },
+  //   { name: "Keyboard", stock: 0 },
+  //   { name: "Monitor", stock: 5 },
+  //   { name: "Laptop", stock: 0 },
+  //   { name: "Proyektor", stock: 2 },
+  //   { name: "Adaptor", stock: 1 },
+  //   { name: "Kabel", stock: 1 },
+  // ];
+
+  // const reduceSemua = datakita.reduce((dataAwal, item) => {
+  //   return item.stock > dataAwal.stock ? item : max;
+  // });
+  // console.log(reduceSemua);
+  // // 3. Nama barang yang stoknya paling banyak
+  // const stock_banyak = datatesting.reduce((max, item) => {
+
+  //   return item.stock > max.stock ? item : max;
+
+  // });
+
+  // console.log("stok paling banyk" + stock_banyak.name);
   return (
-    <div className="md:mt-8 mt-10  mb-70">
-      <div className="md:mt-20 lg:text-start text-center ">
-        <div className="">
-          <h1 className="text-forestGreen font-semibold text-[20px]">
-            Katalog Rental
-          </h1>
-          <h2 className="font-semibold text-[#ffffff] text-2xl md:text-[50px]">
-            Peralatan Rental Kami
-          </h2>
-          <div className="flex lg:flex-row flex-col lg:gap-2 gap-4 mt-2">
-            <p className="md:w-187.75 font-normal text-sm md:text-[15px] text-[#DCE3EC] ">
-              Sewa perlengkapan pendakian Berkualitas Premium dengan jamiman
-              kebersihan Maksimal. Klik Gambar alat untuk informasi detail
-            </p>
-            <div>
+    // <div className="mb-70 mt-10 ">
+    //   <h1>daftar</h1>
+    //   {datatesting.map((item, index) => (
+    //     <div>
+    //       <h1>{item.name}</h1>
+    //       <h1>{item.stock}</h1>
+    //       <br />
+    //     </div>
+    //   ))}
+
+    //   <div>
+    //     <h1>stock habis</h1>
+    //   </div>
+    // </div>
+    <div className="md:mt-7 mt-10 ">
+      <div className=" lg:text-start text-center ">
+        <div
+          className="relative bg-fixed  h-100 bg-cover bg-center bg-no-repeat"
+          style={{
+            backgroundImage: `url(${banner_SenjaAdventure})`,
+          }}
+        >
+          {/* <div className="absolute top-0 rounded-lg w-full h-full overflow-hidden">
+            <img
+              src={banner_SenjaAdventure}
+              className="w-full object-bottom object-cover"
+              alt=""
+            />
+          </div> */}
+          <div className="bg-[#011c3f]/70   w-full h-full z-10 absolute"></div>
+          <div className="absolute py-20 px-10 z-15">
+            <span
+              data-aos="fade-up"
+              delay="200"
+              className="text-forestGreen font-semibold text-md md:text-[20px]"
+            >
+              Katalog Rental
+            </span>
+            <h1
+              data-aos="fade-up"
+              delay="400"
+              className="font-semibold text-[#ffffff]  text-lg md:text-2xl md:text-[50px]"
+            >
+              Rental Alat Camping dan Pendakian Terlengkap | Senja Adventure
+            </h1>
+            <div
+              data-aos="fade-up"
+              delay="600"
+              className="flex lg:flex-row flex-col lg:gap-2 gap-4 mt-2"
+            >
+              <p className="md:w-187.75 font-normal text-sm md:text-[15px] text-[#DCE3EC] ">
+                Sewa perlengkapan pendakian Berkualitas Premium dengan jamiman
+                kebersihan Maksimal. Klik Gambar alat untuk informasi detail
+              </p>
+            </div>
+          </div>
+        </div>
+        <div className="outline outline-0.5 w-full outline-[#012552] mt-10"></div>
+
+        <div className="max-w-7xl mx-auto px-6 py-2 2xl:px-0 mb-2">
+          {/* filtering */}
+          <div
+            data-aos="fade-up"
+            delay="200"
+            className="mt-6 flex items-center justify-between gap-6"
+          >
+            <Icon_Filter h={28} w={30} />
+            <div className="flex overflow-y-auto items-center gap-2 ">
+              <Button
+                title="Semua"
+                klick={() => setCategori("Semua")}
+                className="bg-forestGreen cursor-pointer p-2  font-bold "
+              />
+              <Button
+                title="carriel"
+                klick={() => setCategori("carriel")}
+                className="bg-navyLight cursor-pointer p-2  "
+              />
+              <Button
+                title="tenda"
+                klick={() => setCategori("tenda")}
+                className="bg-navyLight cursor-pointer p-2  "
+              />
+              <Button
+                title="cooking set"
+                klick={() => setCategori("cooking set")}
+                className="bg-navyLight cursor-pointer p-2  "
+              />
+              <Button
+                title="Accessories"
+                klick={() => setCategori("Accessories")}
+                className="bg-navyLight cursor-pointer p-2  "
+              />
+            </div>
+            <div className="mt-2 lg:block hidden">
               <input
                 type="search"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
                 placeholder="Cari nama alat atau deskripsi"
                 className="px-6 py-2 w-full  bg-navyDeep md:w-123 outline-[#012552] outline-0.5 outline  text-sm md:text-[15px] rounded-lg"
               />
               <label htmlFor=""></label>
             </div>
           </div>
-        </div>
-        <div className="outline outline-0.5 w-full outline-[#012552] mt-10"></div>
-
-        {/* filtering */}
-        <div className="mt-20 flex items-center gap-6">
-          <Icon_Filter h={28} w={30} />
-          <div className="flex overflow-y-auto gap-2">
-            <button className="bg-forestGreen lg:py-2 px-4 font-bold text-sm md:text-sm rounded-lg text-[#ffffff]">
-              Semua
-            </button>
-            <button className=" sm:py-2 px-4 bg-navyLight text-sm md:text-sm rounded-md text-[#ffffff]">
-              Carriel
-            </button>
-            <button className=" sm:py-2 px-4 bg-navyLight text-sm md:text-sm rounded-md text-[#ffffff]">
-              Tenda
-            </button>
-            <button className="sm:py-2 px-4 bg-navyLight text-sm md:text-sm rounded-md text-[#ffffff]">
-              Cooking set
-            </button>
-            <button className=" sm:py-2 px-4 bg-navyLight text-sm md:text-sm rounded-lg text-[#ffffff]">
-              Accessories
-            </button>
-          </div>
-        </div>
-        {/* alat alat rental */}
-        <section className="mt-15 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4  space-x-2 md:space-y-4 space-y-4">
-          {Data.map((item, index) => (
-            <Card_alat
-              key={index}
-              image={item.image}
-              description={item.description}
-              price={item.price}
-              name={item.name}
+          <div className="mt-7 md:flex  lg:hidden">
+            <input
+              type="search"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              placeholder="Cari nama alat atau deskripsi"
+              className="px-6 py-2 w-full  bg-navyDeep md:w-123 outline-[#012552] outline-0.5 outline  text-sm md:text-[15px] rounded-lg"
             />
-          ))}
-        </section>
+            <label htmlFor=""></label>
+          </div>
+          {/* alat alat rental */}
+          <section className="mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-x-6 gap-y-8">
+            {filterdata.map((item, index) => (
+              <Card_alat
+                key={index}
+                image={item.image}
+                description={item.description}
+                price={item.price}
+                name={item.name}
+                kategori={item.kategori}
+                kondisi={item.kondisi}
+                onDetail={() => OnclickOpenModal(item)}
+                Aos="fade-up"
+                delay={200 * index}
+              />
+            ))}
+          </section>
+        </div>
       </div>
+      <Modal
+        isOpen={openModal}
+        Onclose={() => setModal(false)}
+        item={selectedItem}
+      />
     </div>
   );
 };

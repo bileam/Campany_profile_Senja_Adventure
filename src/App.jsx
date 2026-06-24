@@ -5,6 +5,7 @@ import MainLayout from "./Layout/MainLayout";
 import Peralatan from "./Page/Peralatan";
 import Home from "./Page/Home";
 import About from "./Page/About";
+import Galery from "./Page/Galery";
 
 const App = () => {
   return (
@@ -14,6 +15,7 @@ const App = () => {
           <Route index path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/peralatan" element={<Peralatan />} />
+          <Route path="/galery" element={<Galery />} />
         </Route>
       </Routes>
     </Router>

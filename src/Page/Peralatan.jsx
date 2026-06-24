@@ -11,7 +11,6 @@ import "aos/dist/aos.css";
 import { useEffect } from "react";
 
 const Peralatan = () => {
-  // console.log(Data);
   const [openModal, setModal] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
   const OnclickOpenModal = (item) => {
@@ -31,65 +30,18 @@ const Peralatan = () => {
   // filtering
 
   const filterdata = Data.filter((item) => {
-    const filterkategori = categori === "Semua" || item.kategori === categori;
+    const filterkategori =
+      categori === "Semua" ||
+      item.kategori.toUpperCase() === categori.toUpperCase();
     const SearchFilter =
       item.name.toLowerCase().includes(search.toLowerCase()) ||
       item.description.toLowerCase().includes(search.toLowerCase());
     return filterkategori && SearchFilter;
   });
 
-  // // console.log(datatesting);
-  // // 2. Total jumlah barang yang stoknya habis
-  // let jumlaStock = 0;
-  // for (let i = 0; i < datatesting.length; i++) {
-  //   if (datatesting[i].stock === 0) {
-  //     jumlaStock++;
-  //   }
-  // }
-  // console.log(jumlaStock);
-
-  // const filterStockhabis = datatesting.filter(
-  //   (item) => item.dstock === 0,
-  // ).length;
-
-  // console.log("stock habis" + filterStockhabis);
-  // const datakita = [
-  //   { name: "Mouse", stock: 10 },
-  //   { name: "Keyboard", stock: 0 },
-  //   { name: "Monitor", stock: 5 },
-  //   { name: "Laptop", stock: 0 },
-  //   { name: "Proyektor", stock: 2 },
-  //   { name: "Adaptor", stock: 1 },
-  //   { name: "Kabel", stock: 1 },
-  // ];
-
-  // const reduceSemua = datakita.reduce((dataAwal, item) => {
-  //   return item.stock > dataAwal.stock ? item : max;
-  // });
-  // console.log(reduceSemua);
-  // // 3. Nama barang yang stoknya paling banyak
-  // const stock_banyak = datatesting.reduce((max, item) => {
-
-  //   return item.stock > max.stock ? item : max;
-
-  // });
-
-  // console.log("stok paling banyk" + stock_banyak.name);
+  const newCategory = ["Semua", ...new Set(Data.map((item) => item.kategori))];
+  // new set untuk mengambil nilai yang unik
   return (
-    // <div className="mb-70 mt-10 ">
-    //   <h1>daftar</h1>
-    //   {datatesting.map((item, index) => (
-    //     <div>
-    //       <h1>{item.name}</h1>
-    //       <h1>{item.stock}</h1>
-    //       <br />
-    //     </div>
-    //   ))}
-
-    //   <div>
-    //     <h1>stock habis</h1>
-    //   </div>
-    // </div>
     <div className="md:mt-7 mt-10 ">
       <div className=" lg:text-start text-center ">
         <div
@@ -98,13 +50,6 @@ const Peralatan = () => {
             backgroundImage: `url(${banner_SenjaAdventure})`,
           }}
         >
-          {/* <div className="absolute top-0 rounded-lg w-full h-full overflow-hidden">
-            <img
-              src={banner_SenjaAdventure}
-              className="w-full object-bottom object-cover"
-              alt=""
-            />
-          </div> */}
           <div className="bg-[#011c3f]/70   w-full h-full z-10 absolute"></div>
           <div className="absolute py-20 px-10 z-15">
             <span
@@ -139,36 +84,20 @@ const Peralatan = () => {
           {/* filtering */}
           <div
             data-aos="fade-up"
-            delay="200"
             className="mt-6 flex items-center justify-between gap-6"
           >
             <Icon_Filter h={28} w={30} />
-            <div className="flex overflow-y-auto items-center gap-2 ">
-              <Button
-                title="Semua"
-                klick={() => setCategori("Semua")}
-                className="bg-forestGreen cursor-pointer p-2  font-bold "
-              />
-              <Button
-                title="carriel"
-                klick={() => setCategori("carriel")}
-                className="bg-navyLight cursor-pointer p-2  "
-              />
-              <Button
-                title="tenda"
-                klick={() => setCategori("tenda")}
-                className="bg-navyLight cursor-pointer p-2  "
-              />
-              <Button
-                title="cooking set"
-                klick={() => setCategori("cooking set")}
-                className="bg-navyLight cursor-pointer p-2  "
-              />
-              <Button
-                title="Accessories"
-                klick={() => setCategori("Accessories")}
-                className="bg-navyLight cursor-pointer p-2  "
-              />
+            <div className="flex overflow-y-auto items-center gap-2 pb-4 ">
+              {newCategory.map((item, index) => (
+                <Button
+                  key={index}
+                  title={item}
+                  klick={() => setCategori(item)}
+                  className={`${
+                    categori === item ? "bg-forestGreen" : "bg-navyLight"
+                  } cursor-pointer p-2 font-bold `}
+                />
+              ))}
             </div>
             <div className="mt-2 lg:block hidden">
               <input
@@ -181,7 +110,7 @@ const Peralatan = () => {
               <label htmlFor=""></label>
             </div>
           </div>
-          <div className="mt-7 md:flex  lg:hidden">
+          <div data-aos="fade-up" className="mt-7 md:flex  lg:hidden">
             <input
               type="search"
               value={search}
@@ -204,7 +133,7 @@ const Peralatan = () => {
                 kondisi={item.kondisi}
                 onDetail={() => OnclickOpenModal(item)}
                 Aos="fade-up"
-                delay={200 * index}
+                // delay={1 * index}
               />
             ))}
           </section>

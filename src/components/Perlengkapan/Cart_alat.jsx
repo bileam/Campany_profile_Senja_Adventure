@@ -16,7 +16,7 @@ const Card_alat = ({
 }) => {
   return (
     <div
-      data-aos={Aos}
+      data-aos="zoom-in-up"
       data-aos-delay={delay}
       onClick={onDetail}
       className="overflow-hidden shadow hover:shadow hover:shadow-[forestGreen] hover:-translate-y-1 transition-all duration-700 rounded-lg group bg-[#012552]/70 h-full flex flex-col"
@@ -24,7 +24,7 @@ const Card_alat = ({
       <div className="overflow-hidden relative">
         <img
           src={image}
-          alt=""
+          alt={name}
           className="object-cover h-70  w-full group-hover:scale-110 transition-all duration-500"
         />
         <div className="absolute top-4 left-2 right-2 flex justify-between">
@@ -57,11 +57,11 @@ const Card_alat = ({
 
           <button
             onClick={onDetail}
-            className="flex gap-2 bg-linear-to-r hover:scale-110 transition-transform duration-500 from-[#6DBE45] to-[#43CB00]/60 hover:from-emerald-500 hover:to-[#6dbe45] shadow-2xl p-2 rounded-full text-[12px]"
+            className="flex gap-2 bg-linear-to-r z-20 cursor-pointer hover:scale-110 transition-transform duration-500 from-[#6DBE45] to-[#43CB00]/60 hover:from-emerald-500 hover:to-[#6dbe45] shadow-2xl p-2 rounded-full text-[12px]"
           >
             {/* <span>Detail</span>
             <Icon_right /> */}
-            <ShoppingCart className="w-5 h-5 stroke-2" />
+            <ShoppingCart className="w-5 h-5 stroke-2 " />
           </button>
         </div>
       </div>

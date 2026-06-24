@@ -21,7 +21,6 @@ export const datatesting = [
 ];
 
 // menampilkan semua data
-
 // Tampilkan:
 // 1. Barang yang stoknya habis.
 // 2. Total jumlah barang yang stoknya habis

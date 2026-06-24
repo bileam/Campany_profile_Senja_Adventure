@@ -1,8 +1,8 @@
 import { createContext, useEffect, useState } from "react";
 
-const cartContext = createContext();
+const CartContext = createContext();
 
-export const cartProvider = ({}) => {
+export const CartProvider = ({ children }) => {
   // mengambil data dari localstore
   const [cart, setCart] = useState(() => {
     const storedcart = localStorage.getItem("cart");
@@ -31,11 +31,49 @@ export const cartProvider = ({}) => {
   // function increaseQTY
   const Plusqty = (id) => {
     setCart((prevCart) => {
-      prevCart.map((item) => {
+      return prevCart.map((item) => {
         item.id === id ? { ...item, qty: qty + 1 } : item;
       });
     });
   };
+
+  const MinusQty = (id) => {
+    setCart((prevCart) => {
+      return prevCart
+        .map((item) => {
+          {
+            item.id === id ? { ...item, qty: item.qty - 1 } : item;
+          }
+        })
+        .filter((item) => item.qty > 0);
+    });
+  };
+
   // hapus data cart berdasarkan id
-  // total price (reduce)
+  const removeById = (id) => {
+    setCart((prevCart) => prevCart.filter((item) => item.id !== id));
+  };
+  // hapus semua data dari cart
+  const removeAll = () => {
+    setCart([]);
+  };
+  //  jumlah item (reduce)
+  const TotalItem = cart.reduce((total, item) => {
+    return total + item.qty;
+  }, 0);
+
+  // Total harga rumus => total + item.price * item.qty
+  <CartContext.Provider
+    value={{
+      cart,
+      addToCart,
+      Plusqty,
+      MinusQty,
+      removeById,
+      removeAll,
+      TotalItem,
+    }}
+  >
+    {children}
+  </CartContext.Provider>;
 };

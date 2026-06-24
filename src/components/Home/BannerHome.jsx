@@ -64,7 +64,7 @@ const BannerHome = () => {
         {banners.map((banner) => (
           <SwiperSlide key={banner.id}>
             <div
-              className="relative h-screen bg-center object-cover bg-cover bg-no-repeat"
+              className="relative bg-fixed h-screen bg-center object-cover bg-cover bg-no-repeat"
               style={{
                 backgroundImage: `url(${banner.image})`,
               }}

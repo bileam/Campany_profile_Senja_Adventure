@@ -5,8 +5,9 @@ const Card = ({ children, delay }) => {
       data-aos-delay="200"
       className="
           rounded-xl
+             lg:max-w-90
           border
-          lg:max-w-90
+       
           border-[#6DBE45]
           bg-[#031D3D]/90
           px-4 py-4

@@ -1,9 +1,12 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import logoSenjaAdveture from "../assets/LogoSenjaAdventure/SenjaAdventure.png";
 import { Menu, MessageCircle, ShoppingCart, X } from "lucide-react";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { CartContext } from "../Context/CartContext";
 
 const Navbar = () => {
+  const navigate = useNavigate();
+  const { cart } = useContext(CartContext);
   const menu = [
     {
       name: "Home",
@@ -14,17 +17,17 @@ const Navbar = () => {
       path: "/about",
     },
     {
-      name: "Peralatan",
+      name: "Booking",
       path: "/peralatan",
     },
     {
       name: "Galery",
       path: "/galery",
     },
-    {
-      name: "Testimony",
-      path: "/testimony",
-    },
+    // {
+    //   name: "Testimony",
+    //   path: "/testimony",
+    // },
     {
       name: "Kontak",
       path: "/kontak",
@@ -45,7 +48,7 @@ const Navbar = () => {
   return (
     <section className="max-w-7xl relative mx-auto md:px-6 px-4 2xl:px-0 flex items-center justify-between">
       {/* Logo */}
-      <div className="flex gap-2 items-center">
+      <div className="flex gap-2 items-center ">
         <div className="rounded-xl overflow-hidden group max-w-10 transition-transform duration-300">
           <img
             src={logoSenjaAdveture}
@@ -76,7 +79,7 @@ const Navbar = () => {
                 `flex py-2 px-4 items-center gap-1 transition-colors duration-500 rounded-lg
                 ${
                   isActive
-                    ? "bg-forestGreen text-[#01132a] font-semibold"
+                    ? "bg-linear-to-t from-[#143a00] to-[#3fb305] text-white "
                     : "hover:bg-white/5"
                 }`
               }
@@ -137,9 +140,17 @@ const Navbar = () => {
           <MessageCircle className="w-5 h-5 stroke-2 stroke-[#6DBE45]" />
         </button>
 
-        <button className="order-2 sm:inline-flex hidden cursor-pointer items-center space-x-2 px-3 py-2.5 rounded-full bg-linear-to-r from-[#6DBE45] to-[#43CB00]/60 hover:from-emerald-500 hover:to-[#6dbe45] text-white font-semibold text-sm shadow-lg shadow-[#6dbe45]/20 transform hover:-translate-y-0.5 transition-all duration-300">
-          <ShoppingCart className="w-5 h-5" />
-        </button>
+        <div className="order-2 relative ">
+          <button
+            onClick={() => navigate("/cart")}
+            className=" sm:inline-flex hidden relative cursor-pointer items-center space-x-2 px-3 py-2.5 rounded-full bg-linear-to-r from-[#6DBE45] to-[#43CB00]/60 hover:from-emerald-500 hover:to-[#6dbe45] text-white font-semibold text-sm shadow-lg shadow-[#6dbe45]/20 transform hover:-translate-y-0.5 transition-all duration-300"
+          >
+            <ShoppingCart className="w-5 h-5" />
+          </button>
+          <p className="absolute top-0.5 right-1 text-[12px] font-bold   ">
+            {cart.length || 0}
+          </p>
+        </div>
       </div>
     </section>
   );

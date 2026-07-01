@@ -1,22 +1,44 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Icon_Filter from "../components/icon/Icon_Filter";
 import Card_alat from "../components/Perlengkapan/Cart_alat";
 import Modal from "../components/Perlengkapan/Modal";
-import { Data } from "../Data/Alat";
-import { datatesting } from "../Data/tes";
+
 import Button from "../components/ui/Button";
 import banner_SenjaAdventure from "../assets/banner/Banner_senja.avif";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { useEffect } from "react";
+import Success from "../components/ui/Success";
+import { PeralatanContext } from "../Context/Peralatan";
 
 const Peralatan = () => {
   const [openModal, setModal] = useState(false);
+  const { peralatan } = useContext(PeralatanContext);
+
   const [selectedItem, setSelectedItem] = useState(null);
+  const [SuccessTocart, setSuccessTocart] = useState(false);
+
+  useEffect(() => {
+    if (!SuccessTocart) return;
+    const timer = setTimeout(() => {
+      setSuccessTocart(false);
+    }, 2000);
+    const handleClick = () => {
+      setSuccessTocart(false);
+    };
+    document.addEventListener("click", handleClick);
+    return () => {
+      clearTimeout(timer);
+      document.removeEventListener("click", handleClick);
+    };
+  }, [SuccessTocart]);
+
   const OnclickOpenModal = (item) => {
     setSelectedItem(item);
+
     setModal(true);
   };
+
   const [categori, setCategori] = useState("Semua");
   const [search, setSearch] = useState("");
 
@@ -27,22 +49,28 @@ const Peralatan = () => {
       offset: 120,
     });
   }, []);
-  // filtering
 
-  const filterdata = Data.filter((item) => {
+  // filtering
+  const filterdata = peralatan.filter((item) => {
     const filterkategori =
       categori === "Semua" ||
       item.kategori.toUpperCase() === categori.toUpperCase();
     const SearchFilter =
-      item.name.toLowerCase().includes(search.toLowerCase()) ||
-      item.description.toLowerCase().includes(search.toLowerCase());
+      item.nama_product.toLowerCase().includes(search.toLowerCase()) ||
+      item.desc.toLowerCase().includes(search.toLowerCase());
     return filterkategori && SearchFilter;
   });
 
-  const newCategory = ["Semua", ...new Set(Data.map((item) => item.kategori))];
+  const newCategory = [
+    "Semua",
+    ...new Set(peralatan.map((item) => item.kategori).filter(Boolean)),
+  ];
+
   // new set untuk mengambil nilai yang unik
   return (
-    <div className="md:mt-7 mt-10 ">
+    <div className="md:mt-7 mt-10 relative ">
+      {SuccessTocart && <Success onsuccess={SuccessTocart} />}
+
       <div className=" lg:text-start text-center ">
         <div
           className="relative bg-fixed  h-100 bg-cover bg-center bg-no-repeat"
@@ -50,7 +78,7 @@ const Peralatan = () => {
             backgroundImage: `url(${banner_SenjaAdventure})`,
           }}
         >
-          <div className="bg-[#011c3f]/70   w-full h-full z-10 absolute"></div>
+          <div className="bg-black/80   w-full h-full z-10 absolute"></div>
           <div className="absolute py-20 px-10 z-15">
             <span
               data-aos="fade-up"
@@ -94,7 +122,9 @@ const Peralatan = () => {
                   title={item}
                   klick={() => setCategori(item)}
                   className={`${
-                    categori === item ? "bg-forestGreen" : "bg-navyLight"
+                    categori === item
+                      ? "bg-linear-to-t from-[#143a00] to-[#3fb305]"
+                      : "bg-navyLight"
                   } cursor-pointer p-2 font-bold `}
                 />
               ))}
@@ -105,7 +135,7 @@ const Peralatan = () => {
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 placeholder="Cari nama alat atau deskripsi"
-                className="px-6 py-2 w-full  bg-navyDeep md:w-123 outline-[#012552] outline-0.5 outline  text-sm md:text-[15px] rounded-lg"
+                className="px-6 py-2 w-full shadow-5xl shadow-black  bg-navyDeep md:w-123 outline-[#000000] outline-0.5 outline  text-sm md:text-[15px] rounded-lg"
               />
               <label htmlFor=""></label>
             </div>
@@ -125,24 +155,21 @@ const Peralatan = () => {
             {filterdata.map((item, index) => (
               <Card_alat
                 key={index}
-                image={item.image}
-                description={item.description}
-                price={item.price}
-                name={item.name}
-                kategori={item.kategori}
-                kondisi={item.kondisi}
-                onDetail={() => OnclickOpenModal(item)}
+                item={item}
+                onSuccess={() => setSuccessTocart(true)}
+                onDetail={() => OnclickOpenModal(item.id)}
                 Aos="fade-up"
-                // delay={1 * index}
               />
             ))}
           </section>
         </div>
       </div>
+
       <Modal
         isOpen={openModal}
         Onclose={() => setModal(false)}
-        item={selectedItem}
+        id={selectedItem}
+        SuccesstoCart={() => setSuccessTocart(true)}
       />
     </div>
   );

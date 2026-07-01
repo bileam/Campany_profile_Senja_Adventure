@@ -6,6 +6,7 @@ import Peralatan from "./Page/Peralatan";
 import Home from "./Page/Home";
 import About from "./Page/About";
 import Galery from "./Page/Galery";
+import Cart from "./Page/Cart";
 
 const App = () => {
   return (
@@ -16,6 +17,7 @@ const App = () => {
           <Route path="/about" element={<About />} />
           <Route path="/peralatan" element={<Peralatan />} />
           <Route path="/galery" element={<Galery />} />
+          <Route path="/cart" element={<Cart />} />
         </Route>
       </Routes>
     </Router>

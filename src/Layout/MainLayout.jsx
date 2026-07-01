@@ -29,7 +29,7 @@ const MainLayout = () => {
   return (
     <div className="text-white flex flex-col">
       <header
-        className={`backdrop-glass fixed top-0 left-0 right-0 z-60 shadow-lg py-4 transition-transform duration-500 ${
+        className={`bg-linear-to-t from-[#01132a] to-[#012552] fixed top-0 left-0 right-0 z-60 shadow-lg py-4 transition-transform duration-500 ${
           showNavbar ? "translate-y-0" : "-translate-y-full"
         }`}
       >

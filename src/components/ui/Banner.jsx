@@ -13,7 +13,7 @@ const Banner = ({ img, title, title2, description }) => {
           alt={description}
         />
       </div> */}
-      <div className="bg-[#011c3f]/70   w-full h-full z-10 absolute"></div>
+      <div className="bg-black/80   w-full h-full z-10 absolute"></div>
       <div className="absolute py-20 px-10 z-15 flex flex-col items-center justify-center text-center">
         <span
           data-aos="fade-up"

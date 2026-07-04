@@ -41,7 +41,6 @@ const Modal = ({ isOpen, Onclose, id, SuccesstoCart }) => {
         <div className="lg:max-w-[60%] md:max-w-[90%]  relative">
           <div className="absolute inset-0 bg-linear-to-t from-black via-black/20 to-transparent"></div>
 
-        
           <div className="absolute inset-0 bg-[#01132a]/0 group-hover:bg-[#01132a]/30 transition-all duration-500"></div>
           <img
             src={item.image}

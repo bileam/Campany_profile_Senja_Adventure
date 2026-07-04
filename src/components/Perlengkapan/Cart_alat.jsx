@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 const Card_alat = ({ item, onDetail, delay }) => {
   const [loadingImage, setLoadingImage] = useState(true);
 

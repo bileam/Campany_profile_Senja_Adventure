@@ -27,7 +27,7 @@ const KatalokAlat = () => {
       <h1
         data-aos="fade-up"
         delay="200"
-        className="font-semibold text-[40px] text-center"
+        className="font-semibold text-lg md:text-[40px] text-center"
       >
         Peralatan Rental Senja Adventure
       </h1>

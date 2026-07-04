@@ -1,18 +1,11 @@
 const Banner = ({ img, title, title2, description }) => {
   return (
     <div
-      className="relative h-100 bg-cover bg-center bg-fixed"
+      className="relative h-100 bg-cover bg-center bg-fixed flex flex-col justify-center items-center "
       style={{
         backgroundImage: `url(${img})`,
       }}
     >
-      {/* <div className="absolute top-0 rounded-lg w-full h-full overflow-hidden">
-        <img
-          src={img}
-          className="w-full h-full object-bottom object-cover"
-          alt={description}
-        />
-      </div> */}
       <div className="bg-black/80   w-full h-full z-10 absolute"></div>
       <div className="absolute py-20 px-10 z-15 flex flex-col items-center justify-center text-center">
         <span

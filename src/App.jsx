@@ -7,6 +7,7 @@ import Home from "./Page/Home";
 import About from "./Page/About";
 import Galery from "./Page/Galery";
 import Cart from "./Page/Cart";
+import Contact from "./Page/Contact";
 
 const App = () => {
   return (
@@ -18,6 +19,7 @@ const App = () => {
           <Route path="/peralatan" element={<Peralatan />} />
           <Route path="/galery" element={<Galery />} />
           <Route path="/cart" element={<Cart />} />
+          <Route path="/kontak" element={<Contact />} />
         </Route>
       </Routes>
     </Router>

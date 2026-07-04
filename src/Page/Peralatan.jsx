@@ -71,7 +71,7 @@ const Peralatan = () => {
     <div className="md:mt-7 mt-10 relative ">
       {SuccessTocart && <Success onsuccess={SuccessTocart} />}
 
-      <div className=" lg:text-start text-center ">
+      <div className="lg:text-start text-center  ">
         <div
           className="relative bg-fixed  h-100 bg-cover bg-center bg-no-repeat"
           style={{

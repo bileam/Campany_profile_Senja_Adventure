@@ -1,10 +1,12 @@
 import { useContext, useState } from "react";
 import { CartContext } from "../Context/CartContext";
 import ModalBooking from "../components/Cart/ModalBooking";
+import { useNavigate } from "react-router-dom";
 const Cart = () => {
   const { cart, Plusqty, MinusQty, removeById, SubTotal, removeAll } =
     useContext(CartContext);
   const [isOpenBooking, setIsOpenBooking] = useState(false);
+  const navigasi = useNavigate();
 
   const [form, setForm] = useState({
     nama: "",
@@ -82,85 +84,106 @@ const Cart = () => {
           <p>home</p> <span>{">"}</span>{" "}
           <p className="text-forestGreen">Keranjang Booking</p>
         </div>
-        <div className="flex lg:flex-row flex-col lg:gap-2 md:gap-10 mt-5  lg:h-100">
+        <div className="flex lg:flex-row  flex-col lg:gap-2 md:gap-10 mt-5  lg:h-100">
           <div className="w-full lg:w-[70%] rounded-xl bg-[#012552] shadow-lg overflow-hidden">
-            <div className="lg:max-h-90 max-h-100 overflow-y-auto">
-              <table className="w-full min-w-170  text-sm text-white">
-                <thead className="bg-[#02366F] sticky top-0">
-                  <tr>
-                    <th className="px-4 py-4 text-left">No</th>
-                    <th className="px-4 py-4 text-left">Produk</th>
-                    <th className="px-4 py-4 text-center">Harga</th>
-                    <th className="px-4 py-4 text-center">Qty</th>
-                    <th className="px-4 py-4 text-center">Subtotal</th>
-                    <th className="px-4 py-4 text-center">Aksi</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {cart.map((item, index) => (
-                    <tr
-                      key={item.id}
-                      className="border-b border-[#1b4c83] hover:bg-[#02366F]/40 transition"
-                    >
-                      <td className="px-4 py-4">{index + 1}</td>
+            <div className="lg:max-h-90 max-h-100 overflow-y-auto py-2 px-2 space-y-2">
+              {cart.map((item, index) => (
+                <div
+                  key={index}
+                  className="border-b relative flex justify-between items-center border-[#1b4c83] hover:bg-[#02366F]/40 transitionw-full md:min-w-170 text-sm text-white  p-2"
+                >
+                  <div className="flex gap-2  md:items-center ">
+                    <img
+                      src={item.image}
+                      alt={item.name}
+                      className="md:w-20 md:h-20 w-25 max-h-40 rounded-lg object-cover"
+                    />
+                    <div>
+                      <p className="md:max-w-40 gap-2 md:gap-0 flex flex-col flex-coltext-wrap text-forestGreen font-bold">
+                        <span className="text-white text-[12px]">
+                          {item.kategori}
+                          {" : "}
+                        </span>
+                        {item.name}
+                      </p>
+                      <p className="md:hidden flex-col ">
+                        <span>
+                          {item.nama_variant} {": "}
+                        </span>
+                        <span>{item.nilai_variant}</span>
+                      </p>
 
-                      <td className="px-4 py-4">
-                        <div className="flex items-center gap-4">
-                          <img
-                            src={item.image}
-                            alt={item.name}
-                            className="w-20 h-20 rounded-lg object-cover"
-                          />
-
-                          <div>
-                            <h2 className="font-semibold">{item.name}</h2>
-                            <p className="text-xs text-gray-300">
-                              {item.kategori}
-                            </p>
-                          </div>
-                        </div>
-                      </td>
-
-                      <td className="px-4 py-4 text-center">
-                        Rp {item.price.toLocaleString("id-ID")}
-                      </td>
-
-                      <td className="px-4 py-4">
-                        <div className="flex justify-center items-center gap-3">
-                          <button
-                            onClick={() => MinusQty(item.id)}
-                            className="w-8 h-8 rounded-full bg-[#6DBE45] hover:bg-green-600"
-                          >
-                            -
-                          </button>
-
-                          <span>{item.qty}</span>
-
-                          <button
-                            onClick={() => Plusqty(item.id)}
-                            className="w-8 h-8 rounded-full bg-[#6DBE45] hover:bg-green-600"
-                          >
-                            +
-                          </button>
-                        </div>
-                      </td>
-
-                      <td className="px-4 py-4 text-center font-semibold text-green-400">
-                        Rp {item.price * item.qty}
-                      </td>
-
-                      <td className="px-4 py-4 text-center">
+                      <p className="md:hidden block ">
+                        Rp. {item.price.toLocaleString("id-ID")}
+                      </p>
+                      <p className="flex flex-col  md:hidden">
+                        <span className="text-forestGreen font-semibold">
+                          SubTotal
+                        </span>
+                        Rp. {(item.price * item.qty).toLocaleString("id-ID")}
+                      </p>
+                      <div className="flex md:hidden md:justify-center mt-2  items-center gap-3">
                         <button
-                          onClick={() => removeById(item.id)}
-                          className="bg-red-500 hover:bg-red-600 px-3 py-2 rounded-lg"
+                          onClick={() => MinusQty(item.id)}
+                          className="w-8 h-8 rounded-full bg-[#6DBE45] hover:bg-green-600"
                         >
-                          Hapus
+                          -
                         </button>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+                        <span>{item.qty}</span>
+                        <button
+                          onClick={() => Plusqty(item.id)}
+                          className="w-8 h-8 rounded-full bg-[#6DBE45] hover:bg-green-600"
+                        >
+                          +
+                        </button>
+                      </div>
+                      <button
+                        onClick={() => removeById(item.id)}
+                        className="bg-red-500 absolute  right-2 top-[50%]  md:hidden block hover:bg-red-600 px-3 py-2 rounded-lg"
+                      >
+                        X
+                      </button>
+                    </div>
+                  </div>
+
+                  <p className=" md:flex flex-col hidden">
+                    <span>{item.nama_variant}</span>
+                    <span>{item.nilai_variant}</span>
+                  </p>
+                  <p className="md:block hidden">
+                    Rp. {item.price.toLocaleString("id-ID")}
+                  </p>
+                  <div className="md:flex hidden justify-center  items-center gap-3">
+                    <button
+                      onClick={() => MinusQty(item.id)}
+                      className="w-8 h-8 rounded-full bg-[#6DBE45] hover:bg-green-600"
+                    >
+                      -
+                    </button>
+
+                    <span>{item.qty}</span>
+
+                    <button
+                      onClick={() => Plusqty(item.id)}
+                      className="w-8 h-8 rounded-full bg-[#6DBE45] hover:bg-green-600"
+                    >
+                      +
+                    </button>
+                  </div>
+                  <p className="md:flex hidden flex-col items-center ">
+                    <span className="text-forestGreen font-semibold">
+                      SubTotal
+                    </span>
+                    Rp. {(item.price * item.qty).toLocaleString("id-ID")}
+                  </p>
+                  <button
+                    onClick={() => removeById(item.id)}
+                    className="bg-red-500 hidden md:block hover:bg-red-600 px-3 py-2 rounded-lg"
+                  >
+                    Hapus
+                  </button>
+                </div>
+              ))}
             </div>
           </div>
           <div className="flex-1   mt-4 lg:mt-0">
@@ -181,7 +204,10 @@ const Cart = () => {
                 </p>
               </div>
               <div className="w-[90%] text-sm flex items-center gap-4 mb-6">
-                <button className="px-4 py-2 bg-linear-to-r from-[#012552] to-[#01132A]  hover:from-[#01132A] hover:to-[#012552] transition-all duration-500 shadow-2xl rounded-md ">
+                <button
+                  onClick={() => navigasi(-1)}
+                  className="px-4 py-2 bg-linear-to-r cursor-pointer from-[#012552] to-[#01132A]  hover:from-[#01132A] hover:to-[#012552] transition-all duration-500 shadow-2xl rounded-md "
+                >
                   kembali
                 </button>
                 <button

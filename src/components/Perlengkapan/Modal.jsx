@@ -8,10 +8,12 @@ const Modal = ({ isOpen, Onclose, id, SuccesstoCart }) => {
   const { newVariant, priceVarint } = useContext(PeralatanContext);
   const { addToCart, removeAll } = useContext(CartContext);
   const item = newVariant(id);
+  // console.log(item.id);
   const [IdVariant, setIdVariant] = useState(item.variant[0].id);
   const price = priceVarint(IdVariant);
   const cartItem = {
     id: IdVariant,
+    id_product: item.id,
     image: item.image,
     name: item.nama,
     kategori: item.kategori,
@@ -22,6 +24,8 @@ const Modal = ({ isOpen, Onclose, id, SuccesstoCart }) => {
     nilai_variant: price.nilai_variant,
     stock: price.stock,
   };
+
+  // console.log(cartItem);
   const handleCart = (citem) => {
     addToCart(citem);
     SuccesstoCart();

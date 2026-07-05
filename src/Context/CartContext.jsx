@@ -1,5 +1,5 @@
 import { createContext, useEffect, useState } from "react";
-
+import { variant_product } from "../Data/DataDammy";
 export const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
@@ -33,6 +33,26 @@ export const CartProvider = ({ children }) => {
     );
   };
 
+  // update
+
+  // update variant
+  const update = (idProduct, idlama, idBaru) => {
+    // cari dulu id apakah ada didalam cart?
+
+    // kita cari id product dudalam tabel variant kemudian ambil id variant yang di pilih
+    const variant = variant_product
+      .filter((item) => item.product_id === idProduct)
+      .map((item) => ({
+        id: item.id,
+        variant_value: item.nilai_variant,
+      }));
+    // console.log(variant);
+    const variant_value = variant.find((item) => item.id === idBaru);
+    return variant_value;
+  };
+  // console.log(variant_product);
+  // console.log(update(3, 4, 5));
+
   const MinusQty = (id) => {
     setCart((prevCart) =>
       prevCart
@@ -54,7 +74,6 @@ export const CartProvider = ({ children }) => {
     (total, item) => total + item.price * item.qty,
     0
   );
- 
 
   // 0 + 75000 * 1, total =75000
   // 75000 + 15000  * 1 = 90000

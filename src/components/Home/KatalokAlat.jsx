@@ -31,7 +31,6 @@ const KatalokAlat = () => {
       >
         Peralatan Rental Senja Adventure
       </h1>
-
       <div
         data-aos="fade-up"
         delay="300"

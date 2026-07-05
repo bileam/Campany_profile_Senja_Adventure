@@ -2,6 +2,7 @@ import { useContext, useState } from "react";
 import { CartContext } from "../Context/CartContext";
 import ModalBooking from "../components/Cart/ModalBooking";
 import { useNavigate } from "react-router-dom";
+import { Package, ShoppingBasket, ShoppingCart } from "lucide-react";
 const Cart = () => {
   const { cart, Plusqty, MinusQty, removeById, SubTotal, removeAll } =
     useContext(CartContext);
@@ -87,6 +88,12 @@ const Cart = () => {
         <div className="flex lg:flex-row  flex-col lg:gap-2 md:gap-10 mt-5  lg:h-100">
           <div className="w-full lg:w-[70%] rounded-xl bg-[#012552] shadow-lg overflow-hidden">
             <div className="lg:max-h-90 max-h-100 overflow-y-auto py-2 px-2 space-y-2">
+              {cart.length === 0 && (
+                <div className="h-50   md:h-80 flex flex-col items-center justify-center">
+                  <ShoppingBasket size={50} className="text-gray-400" />
+                  <p className="text-gray-400">keranjang kosong</p>
+                </div>
+              )}
               {cart.map((item, index) => (
                 <div
                   key={index}

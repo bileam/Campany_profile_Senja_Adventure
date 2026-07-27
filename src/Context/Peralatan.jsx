@@ -95,9 +95,28 @@ export const PeralatanProvider = ({ children }) => {
     };
   };
 
+  // res id_variant dan nilai dan nama untuk di modal update
+  const VariantByProduckId = (id) => {
+    const filterVariant = variant_product
+      .filter((item) => item.product_id === id)
+      .map((item) => ({
+        id: item.id,
+        nama_variant: item.nama_variant,
+        nila_variant: item.nilai_variant,
+      }));
+    return filterVariant;
+  };
+  // console.log(VariantByProduckId(1));
+
   return (
     <PeralatanContext.Provider
-      value={{ newVariant, peralatan, priceVarint, ModalPeralatan }}
+      value={{
+        newVariant,
+        peralatan,
+        priceVarint,
+        ModalPeralatan,
+        VariantByProduckId,
+      }}
     >
       {children}
     </PeralatanContext.Provider>

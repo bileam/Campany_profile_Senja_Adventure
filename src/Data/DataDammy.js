@@ -178,7 +178,6 @@ export const variant_product = [
     harga: 60000,
     stock: 4,
     sisa_stock: 4,
-
     product_id: 3,
     description:
       "Sepatu hiking ukuran 40. Kondisi bahan luar dan jahitan 93% mulus tanpa robek.",

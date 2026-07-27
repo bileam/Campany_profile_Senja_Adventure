@@ -1,5 +1,6 @@
 import { createContext, useEffect, useState } from "react";
 import { variant_product } from "../Data/DataDammy";
+import { data } from "react-router-dom";
 export const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
@@ -20,11 +21,17 @@ export const CartProvider = ({ children }) => {
           item.id === alat.id ? { ...item, qty: item.qty + 1 } : item
         );
       }
-
       return [...prevcart, { ...alat, qty: 1 }];
     });
   };
 
+  // console.log(cart);
+  const findDataByID = (id) => {
+    const findByData = cart.find((item) => item.id === id);
+    return findByData;
+  };
+
+  // console.log(findDataByID(1));
   const Plusqty = (id) => {
     setCart((prevCart) =>
       prevCart.map((item) =>
@@ -36,9 +43,10 @@ export const CartProvider = ({ children }) => {
   // update
 
   // update variant
-  const update = (idProduct, idlama, idBaru) => {
+  const updatevariant = (idProduct, idselect, id) => {
     // cari dulu id apakah ada didalam cart?
-
+    const existing = cart.find((item) => item.id === id);
+    if (!existing) return "tidak ada didalam cart";
     // kita cari id product dudalam tabel variant kemudian ambil id variant yang di pilih
     const variant = variant_product
       .filter((item) => item.product_id === idProduct)
@@ -47,11 +55,32 @@ export const CartProvider = ({ children }) => {
         variant_value: item.nilai_variant,
       }));
     // console.log(variant);
-    const variant_value = variant.find((item) => item.id === idBaru);
-    return variant_value;
+    const selectvariant = variant.find((item) => item.id === idselect);
+    return selectvariant;
+    // console.log(variant);
+    // const variant_value = variant.find((item) => item.id === idBaru);
+    // return variant_value;
   };
   // console.log(variant_product);
-  // console.log(update(3, 4, 5));
+  // console.log(updatevariant(1, 4, 1));
+
+  // update id variant
+  const updateIdVariantById = (id, idVariant) => {
+    const variant = variant_product.find((item) => item.id === idVariant);
+    if (!variant) return;
+    setCart((prev) =>
+      prev.map((item) =>
+        item.id === id
+          ? {
+              ...item,
+              nama_variant: variant.nama_variant,
+              nilai_variant: variant.nilai_variant,
+              price: variant.harga,
+            }
+          : item
+      )
+    );
+  };
 
   const MinusQty = (id) => {
     setCart((prevCart) =>
@@ -82,14 +111,16 @@ export const CartProvider = ({ children }) => {
   return (
     <CartContext.Provider
       value={{
-        cart,
         addToCart,
+        cart,
+        findDataByID,
         Plusqty,
         MinusQty,
         removeById,
         removeAll,
         TotalItem,
         SubTotal,
+        updateIdVariantById,
       }}
     >
       {children}

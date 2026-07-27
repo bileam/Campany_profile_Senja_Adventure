@@ -1,4 +1,4 @@
-import { NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import logoSenjaAdveture from "../assets/LogoSenjaAdventure/SenjaAdventure.png";
 import { Menu, MessageCircle, ShoppingCart, X } from "lucide-react";
 import { useContext, useState } from "react";
@@ -100,7 +100,7 @@ const Navbar = () => {
 
       {/* Menu Mobile */}
       <div
-        className={`absolute top-10 h-130 shadow-2xl lg:hidden transition-all duration-500 bg-[#011c3f] w-full ${
+        className={`absolute top-14 h-130 shadow-2xl lg:hidden transition-all duration-500 bg-[#011c3f] w-full ${
           OpenMenu ? "left-0" : "translate-x-full"
         } text-white px-4 py-6`}
       >
@@ -127,9 +127,18 @@ const Navbar = () => {
           ))}
         </ul>
 
-        <div className="absolute bottom-10 right-5 left-5">
+        <div className="absolute  flex flex-col gap-4 bottom-10 right-5 left-5">
           <button className="w-full flex cursor-pointer items-center justify-center space-x-2 px-5 py-4 rounded-full bg-linear-to-r from-[#6dbe45] to-emerald-500 hover:from-emerald-500 hover:to-[#6dbe45] text-white font-semibold text-sm shadow-lg shadow-[#6dbe45]/20 transform hover:-translate-y-0.5 transition-all duration-300">
+            <span> Whatsapp </span>
             <MessageCircle className="w-5 h-5 fill-current" />
+          </button>
+          <button
+            onClick={() => navigate("/cart")}
+            className="w-full flex cursor-pointer items-center justify-center space-x-2 px-5 py-4 rounded-full bg-linear-to-r from-[#6dbe45] to-emerald-500 hover:from-emerald-500 hover:to-[#6dbe45] text-white font-semibold text-sm shadow-lg shadow-[#6dbe45]/20 transform hover:-translate-y-0.5 transition-all duration-300"
+          >
+            <span>Keranjang</span>
+            <ShoppingCart className="w-5 h-5" />
+            <span className=" text-sm ">{cart.length || 0}</span>
           </button>
         </div>
       </div>
@@ -139,15 +148,14 @@ const Navbar = () => {
         <button className="order-2 sm:inline-flex hidden cursor-pointer items-center space-x-2 px-3 py-2.5 rounded-full bg-linear-to-r from-[#012552] to-[#01132A] text-white font-semibold text-sm shadow-lg shadow-[#6dbe45]/20 transform hover:-translate-y-0.5 transition-all duration-300">
           <MessageCircle className="w-5 h-5 stroke-2 stroke-[#6DBE45]" />
         </button>
-
         <div className="order-2 relative ">
-          <button
-            onClick={() => navigate("/cart")}
+          <Link
+            to={"/cart"}
             className=" sm:inline-flex hidden relative cursor-pointer items-center space-x-2 px-3 py-2.5 rounded-full bg-linear-to-r from-[#6DBE45] to-[#43CB00]/60 hover:from-emerald-500 hover:to-[#6dbe45] text-white font-semibold text-sm shadow-lg shadow-[#6dbe45]/20 transform hover:-translate-y-0.5 transition-all duration-300"
           >
             <ShoppingCart className="w-5 h-5" />
-          </button>
-          <p className="absolute top-0.5 right-1 text-[12px] font-bold   ">
+          </Link>
+          <p className="absolute top-0.5 right-1 text-[12px] font-bold  sm:inline-flex hidden   ">
             {cart.length || 0}
           </p>
         </div>

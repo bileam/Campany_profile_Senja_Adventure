@@ -4,13 +4,18 @@ const Peta = () => {
   return (
     <section className="w-full md:mt-20 mt-6 bg-[#01132a]/50 rounded-lg shadow-2xl p-4">
       <div className="max-w-7xl mx-auto md:px-6">
-        <div className="text-center mb-4">
+        <div className="text-center mb-4 flex flex-col items-center">
           <span className="text-green-500 uppercase tracking-widest font-semibold">
             Lokasi Kami
           </span>
           <h2 className="text-3xl md:text-4xl font-bold text-white mt-3">
             Temukan Senja Adventure
           </h2>
+          <p className="text-sm md:w-[50%]">
+            Senja Adventure berlokasi di Salatiga, Jawa Tengah dan menyediakan
+            layanan penyewaan perlengkapan pendakian serta camping. Silakan
+            kunjungi lokasi kami melalui Google Maps di bawah ini.
+          </p>
         </div>
 
         <div className="overflow-hidden rounded-2xl border border-slate-700 shadow-2xl">

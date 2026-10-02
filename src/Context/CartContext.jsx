@@ -1,6 +1,7 @@
 import { createContext, useEffect, useState } from "react";
 import { variant_product } from "../Data/DataDammy";
 import { data } from "react-router-dom";
+import { toast } from "sonner";
 export const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
@@ -23,6 +24,7 @@ export const CartProvider = ({ children }) => {
       }
       return [...prevcart, { ...alat, qty: 1 }];
     });
+    toast.success(`${alat.name} berhasil ditambahkan ke keranjang`);
   };
 
   // console.log(cart);

@@ -12,6 +12,7 @@ const Cart = () => {
   const navigasi = useNavigate();
   const [isOpenUpdate, setUpdate] = useState(false);
   const [selectId, setSelectId] = useState(null);
+  const [itemToDelete, setItemToDelete] = useState(null);
   // console.log(selectId);
 
   const [form, setForm] = useState({
@@ -176,7 +177,7 @@ const Cart = () => {
                       <button
                         onClick={(e) => {
                           e.stopPropagation();
-                          removeById(item.id);
+                          setItemToDelete(item);
                         }}
                         className="bg-red-500 absolute  right-2 top-2  md:hidden block hover:bg-red-600 px-3 py-2 rounded-lg"
                       >
@@ -224,7 +225,7 @@ const Cart = () => {
                   <button
                     onClick={(e) => {
                       e.stopPropagation();
-                      removeById(item.id);
+                      setItemToDelete(item);
                     }}
                     className="bg-red-500 cursor-pointer hidden md:block hover:bg-red-600 px-3 py-2 rounded-lg"
                   >
@@ -284,6 +285,40 @@ const Cart = () => {
         setForm={setForm}
         handleBooking={handleBooking}
       />
+      {itemToDelete && (
+        <div className="fixed inset-0 z-110 flex items-center justify-center bg-black/60 px-4">
+          <div
+            role="alertdialog"
+            aria-modal="true"
+            aria-labelledby="delete-cart-item-title"
+            className="w-full max-w-sm rounded-lg border border-[#1b4c83] bg-[#012552] p-5 text-white shadow-xl"
+          >
+            <h2 id="delete-cart-item-title" className="text-lg font-bold">
+              Hapus pesanan?
+            </h2>
+            <p className="mt-2 text-sm text-gray-300">
+              {itemToDelete.name} akan dihapus dari keranjang.
+            </p>
+            <div className="mt-5 flex justify-end gap-3">
+              <button
+                onClick={() => setItemToDelete(null)}
+                className="rounded-md border border-gray-400 px-4 py-2 hover:bg-white/10"
+              >
+                Batal
+              </button>
+              <button
+                onClick={() => {
+                  removeById(itemToDelete.id);
+                  setItemToDelete(null);
+                }}
+                className="rounded-md bg-red-600 px-4 py-2 hover:bg-red-700"
+              >
+                Hapus
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 };

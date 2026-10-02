@@ -1,16 +1,82 @@
-# React + Vite
+# Senja Adventure
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Senja Adventure is a responsive company profile and outdoor equipment rental website. Visitors can learn about the company, browse camping and hiking equipment, add items to a cart, and prepare a booking request for WhatsApp.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- Company profile, history, advantages, gallery, and contact pages.
+- Equipment catalog with category filters, text search, product details, and selectable variants.
+- Shopping cart with quantity controls, subtotal calculation, and browser `localStorage` persistence.
+- Booking form that formats cart and customer details into a WhatsApp message.
+- Responsive Sonner notifications when an item is added to the cart.
 
-## React Compiler
+## Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- React 19
+- Vite
+- React Router
+- Tailwind CSS 4
+- Sonner
+- Framer Motion, AOS, and Swiper
+- Lucide React and React Icons
 
-## Expanding the ESLint configuration
+## Getting Started
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### Requirements
+
+- Node.js
+- npm
+
+### Install dependencies
+
+```bash
+npm ci
+```
+
+### Start the development server
+
+```bash
+npm run dev
+```
+
+Vite prints the local URL in the terminal after the server starts.
+
+## Available Scripts
+
+| Command           | Description                           |
+| ----------------- | ------------------------------------- |
+| `npm run dev`     | Start the Vite development server.    |
+| `npm run build`   | Create a production build in `dist/`. |
+| `npm run preview` | Preview the production build locally. |
+| `npm run lint`    | Run ESLint across the project.        |
+
+## Routes
+
+| Path         | Page                           |
+| ------------ | ------------------------------ |
+| `/`          | Home                           |
+| `/about`     | About Senja Adventure          |
+| `/peralatan` | Equipment catalog              |
+| `/galery`    | Gallery                        |
+| `/kontak`    | Contact information and map    |
+| `/cart`      | Shopping cart and booking form |
+
+## Project Structure
+
+```text
+src/
+  assets/       Images, logos, and other static assets
+  components/   Page sections and reusable UI components
+  Context/      Equipment and shopping cart state
+  Data/         Equipment, category, and variant data
+  Layout/       Shared navigation and footer layouts
+  Page/         Route-level page components
+  App.jsx       Application routes
+  main.jsx      React entry point and providers
+```
+
+## Project Configuration
+
+- Equipment, category, and variant records are defined in `src/Data/DataDammy.js`.
+- Cart contents are stored in the visitor's browser using `localStorage`.
+- Update the WhatsApp admin number in `src/Page/Cart.jsx` before deploying the booking flow.

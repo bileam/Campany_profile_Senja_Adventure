@@ -9,6 +9,9 @@ const ModalBooking = ({
   setForm,
   handleBooking,
 }) => {
+  const today = new Date();
+  const minDate = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, "0")}-${String(today.getDate()).padStart(2, "0")}`;
+
   if (!isOpen) return null;
 
   return (
@@ -84,13 +87,19 @@ const ModalBooking = ({
 
               <input
                 type="date"
+                min={minDate}
                 value={form.tanggalAmbil}
-                onChange={(e) =>
-                  setForm({
-                    ...form,
-                    tanggalAmbil: e.target.value,
-                  })
-                }
+                onChange={(e) => {
+                  const tanggalAmbil = e.target.value;
+                  setForm((prevForm) => ({
+                    ...prevForm,
+                    tanggalAmbil,
+                    tanggalKembali:
+                      prevForm.tanggalKembali < tanggalAmbil
+                        ? ""
+                        : prevForm.tanggalKembali,
+                  }));
+                }}
                 className="w-full rounded-lg border border-white/10 bg-[#072A56] p-3 text-sm md:text-base text-white outline-none focus:border-[#6DBE45]"
               />
             </div>
@@ -103,6 +112,7 @@ const ModalBooking = ({
 
               <input
                 type="date"
+                min={form.tanggalAmbil || minDate}
                 value={form.tanggalKembali}
                 onChange={(e) =>
                   setForm({

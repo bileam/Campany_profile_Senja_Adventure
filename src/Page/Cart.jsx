@@ -24,6 +24,9 @@ const Cart = () => {
   });
 
   const handleBooking = () => {
+    const today = new Date();
+    const minDate = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, "0")}-${String(today.getDate()).padStart(2, "0")}`;
+
     if (
       !form.nama ||
       !form.whatsapp ||
@@ -31,6 +34,16 @@ const Cart = () => {
       !form.tanggalKembali
     ) {
       alert("Lengkapi data booking terlebih dahulu");
+      return;
+    }
+
+    if (form.tanggalAmbil < minDate || form.tanggalKembali < minDate) {
+      alert("Tanggal booking tidak boleh sebelum hari ini");
+      return;
+    }
+
+    if (form.tanggalKembali < form.tanggalAmbil) {
+      alert("Tanggal kembali tidak boleh sebelum tanggal ambil");
       return;
     }
 
